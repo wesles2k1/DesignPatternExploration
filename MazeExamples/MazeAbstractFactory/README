@@ -1,0 +1,9 @@
+Description:
+    This project is based on the Maze example from the "Creational Patterns" section of "Design Patterns: Elements of Reusable Object-Oriented Software" for the purposes of studying the Factory Method and Abstract Factory Patterns.
+    This version implements the Factory Method through the MapFactory class as done in the book. This seems good, but I wonder how I can easily decide which factory to use at runtime? I could use logic to choose which factory, but then it would feel like I should have a factory to build those factories that would need a subclass for each, which doesn't solve anything. Is it appropriate at this point to use a switch/if selector to pick a factory, in this case, in main.cpp?
+
+Start Date:
+    9/27/2023
+
+Notes:
+    This program does not yet deallocate memory

@@ -1,0 +1,9 @@
+Description:
+    This project is based on the Maze example from the "Creational Patterns" section of "Design Patterns: Elements of Reusable Object-Oriented Software" for the purposes of studying the Factory Method and Abstract Factory Patterns.
+    This version implements the Factory Method through the MazeGame class as done in the book.
+
+Start Date:
+    9/27/2023
+
+Notes:
+    This program does not yet deallocate memory

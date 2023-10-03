@@ -1,0 +1,22 @@
+This program was heavily based on the example in "Head First Design Patterns", first edition.
+
+My thoughts:
+Though a private constructor, a private static instance of itself, and a static GetInstance method, a class can ensure that it is only ever instantiated ONCE.
+By using ClassName::GetInstance(), either the class is instantiated if there is none, or the existing instance is returned.
+Additionally, this GetInstance method is accessible GLOBALLY.
+
+Questions:
+When does it get deleted? What is its scope?
+What if my singleton class has children? Can I only make one of anything in the hierarchy, or is there a way I can have one for each piece of the hierarchy?
+Apparently multithreading is an issue, and I don’t know much about multithreading.
+Do I have any say in how my program might be multithreaded? Is it “single threaded” by default or do I have to account for multithreading?
+Solutions suggested by the book (keep in mind my code is C++ and theirs is Java):
+    Add keyword "synchronized" to GetInstance()
+        Pros: Truely ensures only one instantiation by disallowing multithreading of GetInstance()
+        Cons: Can be very expensive
+    Instantiate class instantly at instance declaration (no longer need to check instance == nullptr, just return instance)
+        Pros: Ensures only one will ever be created by creating one as soon as the header file is processed
+        Cons: Doesn't instantiate a class only when needed; class is always instantiated, regardless of whether needed or not
+    Declare instance member "volatile" and "synchronize" an identically nested instance == nullptr check of GetInstance()
+        Pros: Like synchronize solution above, but only does synchronize once ever, so it isn't as expensive
+        Cons: A bit complicated to figure out now
