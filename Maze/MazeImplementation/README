@@ -1,0 +1,29 @@
+Description:
+    Last updated: 10/09/2023
+
+    This implementation of the Maze program is an attempt at combining the Abstract Factory (and, by extention, the Factory Method) and Singleton design patterns together.
+    This is done primarily through reworking the MapFactory hierarchy. Singleton behaviors have been implemented into the base class, MapFactory. Through its static GetInstance() method, the client may specify what class of the MapFactory hierarcy (including MapFactory itself) to retreive or instantiate if necessary. Through this, different factories may be used at will, simply by specifying the desired factory, and there will never be duplicate factories of the same type through this technique. Adding a new type of MapFactory only requires the addition of a child class, no changes or additions to any existing content, as MapFactory does not rely on its children at all and coupling has been minimized. Different factories will provide unique objects to be used in the creation of a Map, such as Rooms, Walls, and Doors.
+
+    While it has not been implemented yet, this project will utilize the MazeGame to define how different mazes will be constructed. For example, it is planned that a derivation of MazeGame, say EnchantedMazeGame, will utilize the MapFactory and EnchantedMapFactory to build a map with elements from both factories.
+
+    When running the game (via RunGame()), simple options will be provided, expecting input of those options in complete lowercase.
+
+Start Date:
+    10/6/2023
+
+Notes:
+    This program does not yet deallocate memory.
+
+Problems/Questions (focused on the MapFactory hierarchy):
+    Templates and Header Files:
+        Can I avoid putting template implementation in the header file?
+    Template Quality:
+        Is this method of using templates for my singleton abstract hierarchy? Are there any horrible drawbacks of this I'm not aware of? Is it just a fluke that this is behaving the way I want it to? The client needs to know the name of subclasses to use, which is slightly undesirable, but that being all doesn't seem too bad. Plus I'm not too sure what alternative is available.
+    Is a Wrapper Necessary:
+        Should the static GetInstance() function (along with the rest of the singleton implementation) be in its own class, a wrapper for MapFactory? It works fine as is, but I'm not sure if this alternative would be better, worse, or about the same in any ways.
+    Constructor Parameters and Reconstruction:
+        I forsee an "issue" with the constructor: say I want a derivation of MapFactory that mixes BombMap elements and Map elements, and I want to specify the chances of an element being one over the other via a parameter. As this program is, passing in such parameters can only be done ONCE, as the class can't be reinstantiated; only retrieved. Is it okay to add a "reconstructor" function to allow the reconstruction of a singleton instance with different parameters if desired?
+    Instantiation Type Restrictions:
+        Though I haven't played around with it very much, I haven't found a way that I can lock the templatized type "T" to be of MapFactory or its children, whether there is a direct way to do this or if it needs to be done through an internal if statement within GetInstance.
+    Instantiation Accessiblity
+        I am unsure of how to prevent instanciations of MapFactory subclasses outside of its intended method. As far as I know, MapFactory() must be protected: public would nulify the whole purpose of being a singleton, and private would lock any possible subclass instantiation, even through the desired singleton method. But, being protected, any derived classes can make their own constructors public (it is this way by default, so the client would have to go out of their way to make it protected) and bypass the intentions of the MapFactory's protected constructor. A solution to this problem would be having MapFactory force each of its children's constuctors to be protected, but this seems impossible. Is there an alternative?
