@@ -10,29 +10,22 @@ using namespace std;
 int main() {
 
     MazeGame game;
-    
-    // For now, the following line works. This is a problem.
-    //EnchantedMapFactory factory;
-    //game.CreateMaze(factory);
-    //game.RunGame();
-    
-    //MapFactory::GetInstance<int>();
 
     // First Game
     // Creates first (and only) instance of BombMapFactory
-    game.CreateMaze(*MapFactory::GetInstance<BombMapFactory>());
+    game.CreateMaze(*BombMapFactory::GetInstance<BombMapFactory>());
     game.RunGame();
     
     // Second Game
     // Creates first (and only) instance of EnchantedMapFactory
 
-    game.CreateMaze(*MapFactory::GetInstance<EnchantedMapFactory>());
+    game.CreateMaze(*EnchantedMapFactory::GetInstance<EnchantedMapFactory>());
     game.RunGame();
-
+    
     // Third Game
     // Recognizes the first BombMapFactory and uses that instead of making a new one.
 
-    game.CreateMaze(*MapFactory::GetInstance<BombMapFactory>());
+    game.CreateMaze(*BombMapFactory::GetInstance<BombMapFactory>());
     game.RunGame();
 
     // Fourth Game

@@ -1,26 +1,12 @@
 #pragma once
 
 #include <iostream>
-#include <type_traits>
 
 #include "../Player/Player.h"
 #include "../Map/Map.h"
 
 class MapFactory {
     public:
-        // The method by which this class can be instantiated or retrieved
-        template <typename T>
-        static T* GetInstance() {
-            if (uniqueInstance<T> == nullptr) {
-                std::cout << "Making new factory." << std::endl;
-                uniqueInstance<T> = new T();
-                // This function is lacking a way to ensure T is of type MapFactory, but incorrect use in this way doesn't seem to hinder its intended effect, so it isn't of great priority now
-            } else {
-                std::cout << "This factory already exists!" << std::endl;
-            }
-            return uniqueInstance<T>;
-        }
-
         // Factory Methods
         virtual Map* MakeMap() const;
         virtual Room* MakeRoom(int id) const;
@@ -28,10 +14,23 @@ class MapFactory {
         virtual Door* MakeDoor(Room* door1, Room* door2) const;
         virtual Player* MakePlayer(Room* startingRoom) const;
 
+        // The method by which this class can be instantiated or retrieved
+        template <typename T>
+        static T* GetInstance() {
+            if (uniqueInstance<T> == nullptr) {
+                //std::cout << "Making new factory." << std::endl;
+                // Sets the uniqueInstance, but WILL NOT COMPILE if T is anything but a MapFactory
+                // This is intentional so as to disallow any instances that is not of this hierarchy
+                uniqueInstance<T> = dynamic_cast<T*>(dynamic_cast<MapFactory*>(new T()));
+            } else {
+                //std::cout << "This factory already exists!" << std::endl;
+            }
+            // Will ALWAYS return a MapFactory, NEVER nullptr
+            return uniqueInstance<T>;
+        }
+
     protected:
-        // The protected constructor of this class
-            // This allows subclass constructors to be customized
-            // The downside is that once instantiation has occurred, the object can't be constructed again at all with different parameters for different behaviors, but it would be possible (and might be worth doing) to add an additional method to this class that allows the reconstruction of a singleton instance for different parameterization.
+        // The protected constructor of this class, allowing for children
         MapFactory();
 
     private:

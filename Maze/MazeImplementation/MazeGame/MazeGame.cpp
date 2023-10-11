@@ -4,6 +4,7 @@
 #include "MazeGame.h"
 
 Map* MazeGame::CreateMaze(MapFactory& factory) {
+    // Check if factory is not nullptr, throw exception otherwise probably
     Map* aMaze = factory.MakeMap();
     Room* r1 = factory.MakeRoom(1);
     Room* r2 = factory.MakeRoom(2);

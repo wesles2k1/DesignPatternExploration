@@ -1,21 +1,8 @@
-#include <iostream>
-
 #include "MapFactory.h"
 
 // ------ //
 // Public //
 // ------ //
-
-// Returns instance of this class, creating one if necessary
-/*
-template <typename T>
-T* MapFactory::GetInstance() {
-    if (uniqueInstance == nullptr) {
-        uniqueInstance = new MapFactory();
-    }
-    return uniqueInstance;
-}
-*/
 
 // Factory Methods
 

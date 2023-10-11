@@ -15,15 +15,16 @@ Notes:
     This program does not yet deallocate memory.
 
 Problems/Questions (focused on the MapFactory hierarchy):
-    Templates and Header Files:
-        Can I avoid putting template implementation in the header file?
-    Template Quality:
-        Is this method of using templates for my singleton abstract hierarchy? Are there any horrible drawbacks of this I'm not aware of? Is it just a fluke that this is behaving the way I want it to? The client needs to know the name of subclasses to use, which is slightly undesirable, but that being all doesn't seem too bad. Plus I'm not too sure what alternative is available.
-    Is a Wrapper Necessary:
-        Should the static GetInstance() function (along with the rest of the singleton implementation) be in its own class, a wrapper for MapFactory? It works fine as is, but I'm not sure if this alternative would be better, worse, or about the same in any ways.
-    Constructor Parameters and Reconstruction:
-        I forsee an "issue" with the constructor: say I want a derivation of MapFactory that mixes BombMap elements and Map elements, and I want to specify the chances of an element being one over the other via a parameter. As this program is, passing in such parameters can only be done ONCE, as the class can't be reinstantiated; only retrieved. Is it okay to add a "reconstructor" function to allow the reconstruction of a singleton instance with different parameters if desired?
-    Instantiation Type Restrictions:
-        Though I haven't played around with it very much, I haven't found a way that I can lock the templatized type "T" to be of MapFactory or its children, whether there is a direct way to do this or if it needs to be done through an internal if statement within GetInstance.
-    Instantiation Accessiblity
-        I am unsure of how to prevent instanciations of MapFactory subclasses outside of its intended method. As far as I know, MapFactory() must be protected: public would nulify the whole purpose of being a singleton, and private would lock any possible subclass instantiation, even through the desired singleton method. But, being protected, any derived classes can make their own constructors public (it is this way by default, so the client would have to go out of their way to make it protected) and bypass the intentions of the MapFactory's protected constructor. A solution to this problem would be having MapFactory force each of its children's constuctors to be protected, but this seems impossible. Is there an alternative?
+    Instantiation Restriction:
+        As of now, I believe that MapFactory::GetInstance() CANNOT return anything but a MapFactory, even a nullptr. Is this true? Can I assert that MapFactory::GetInstance() will ALWAYS return a pointer to an existing MapFactory?
+        The only place I see where nullptr may be set is if the dynamic_cast fails. However, I believe that if T is anything other than a member of the MapFactory hierarchy, the program will refuse to compile, since a non-MapFactory can't be dynamically cast to or from a MapFactory.
+    Singleton Wrapper:
+        Is there any reason to have a class that defines the singleton behavior and has a uniqueInstance of MapFactory? I don't see how this can hurt much, but does it help anything?
+        * It separates the responsibility of maintaining singletonness from the responsibility of creating pieces of a map, adhering to the Single-Responsibility-Principle.
+        Just think about this a little more at some point.
+    Can I eliminate the need for templatizing GetInstance?
+        Say instead of:
+        MapFactory::GetInstance<EnchantedMapFactory>()
+        I can say:
+        EnchantedMapFactory::GetInstance()
+        This is probably a stupid idea too lol
