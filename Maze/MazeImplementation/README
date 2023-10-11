@@ -1,10 +1,11 @@
 Description:
-    Last updated: 10/09/2023
+    Last updated: 10/11/2023
 
     This implementation of the Maze program is an attempt at combining the Abstract Factory (and, by extention, the Factory Method) and Singleton design patterns together.
-    This is done primarily through reworking the MapFactory hierarchy. Singleton behaviors have been implemented into the base class, MapFactory. Through its static GetInstance() method, the client may specify what class of the MapFactory hierarcy (including MapFactory itself) to retreive or instantiate if necessary. Through this, different factories may be used at will, simply by specifying the desired factory, and there will never be duplicate factories of the same type through this technique. Adding a new type of MapFactory only requires the addition of a child class, no changes or additions to any existing content, as MapFactory does not rely on its children at all and coupling has been minimized. Different factories will provide unique objects to be used in the creation of a Map, such as Rooms, Walls, and Doors.
+    This is done primarily through reworking the MapFactory hierarchy. Singleton behaviors have been implemented into the base class, MapFactory. Through its static Get() method, the client may specify what class of the MapFactory hierarcy (including MapFactory itself) to retreive or instantiate if necessary. Through this, different factories may be used at will, simply by specifying the desired factory, and there will never be duplicate factories of the same type through this technique. Adding a new type of MapFactory only requires the addition of a child class, no changes or additions to any existing content, as MapFactory does not rely on its children at all and coupling has been minimized. Different factories will provide unique objects to be used in the creation of a Map, such as Rooms, Walls, and Doors.
+        *This description needs updated.
 
-    While it has not been implemented yet, this project will utilize the MazeGame to define how different mazes will be constructed. For example, it is planned that a derivation of MazeGame, say EnchantedMazeGame, will utilize the MapFactory and EnchantedMapFactory to build a map with elements from both factories.
+    While it has not been implemented yet, this project will utilize MazeGame to define how different mazes will be constructed. For example, it is planned that CreateMaze() may take parameters of multiple factories, corresponding percentages, and possibly a generation method to use as an enum.
 
     When running the game (via RunGame()), simple options will be provided, expecting input of those options in complete lowercase.
 
@@ -15,18 +16,18 @@ Notes:
     This program does not yet deallocate memory.
 
 Problems/Questions (focused on the MapFactory hierarchy):
-    BIG PROBLEM: Subclasses CAN'T protect/privatize their own constructors:
-        I'm not entirely clear on why this is, but it seems that by declaring a constructor protected, the base class, who defines GetInstance(), can no longer access its own child's constructor. I don't know how to fix this.
-    Instantiation Restriction:
-        As of now, I believe that MapFactory::GetInstance() CANNOT return anything but a MapFactory, even a nullptr. Is this true? Can I assert that MapFactory::GetInstance() will ALWAYS return a pointer to an existing MapFactory?
+    Instantiation Restriction (only an issue if singleton behavior is embedded within MapFactory and the Singleton class is scrapped):
+        As of now, I believe that MapFactory::Get() CANNOT return anything but a MapFactory, even a nullptr. Is this true? Can I assert that MapFactory::Get() will ALWAYS return a pointer to an existing MapFactory?
         The only place I see where nullptr may be set is if the dynamic_cast fails. However, I believe that if T is anything other than a member of the MapFactory hierarchy, the program will refuse to compile, since a non-MapFactory can't be dynamically cast to or from a MapFactory.
-    Singleton Wrapper:
-        Is there any reason to have a class that defines the singleton behavior and has a uniqueInstance of MapFactory? I don't see how this can hurt much, but does it help anything?
-        * It separates the responsibility of maintaining singletonness from the responsibility of creating pieces of a map, adhering to the Single-Responsibility-Principle.
-        Just think about this a little more at some point.
-    Can I eliminate the need for templatizing GetInstance?
-        Say instead of:
-        MapFactory::GetInstance<EnchantedMapFactory>()
-        I can say:
-        EnchantedMapFactory::GetInstance()
-        This is probably a stupid idea too lol
+    Singleton Wrapper (Static Class):
+        I decided to separate the singleton behavior from the map component factory methods, by splitting MapFactory into MapFactory and Singleton. This seems to be good, and I'm not seeing a downside:
+            * Singleton doesn't need to know ANYTHING about any other classes, and can make a singleton out of ANYTHING.
+            * Making a singleton is very easy, requiring only a desired class's constructor to be protected/private (actually optional) and to declare Singleton a friend of it (More info in Singleton's README)
+            * Using singleton is incredibly intuitive as well, as you just call Singleton::Get<AnyClassYouWant>(); to get a pointer to a one single instance.
+            * Emphasis that you can use this to make a singleton out of anything without putting singleton functionality into a class.
+        If there is a downside to this, whether I'm practicing bad object oriented methodology without realizing it or something else, I would love to know.
+        While it is possible to put the singleton behaviors directly into MapFactory, as was originally done, this method opens up the possiblility to use the singleton pattern on anything with ease.
+        The only problem I see is that you may want an individual value to correspond to a base class AND it's children (ex: you want MapFactory and BombMapFactory to be the same thing, only having one existing MapFactory, no matter what type of MapFactory it is), but I believe this is a matter of design choice and that you could design a separate kind of Singleton to be used for this. Maybe it's even possible to add this functionality to Singleton by providing a parameter within Get() (or create a new function to toggle how Singleton works at will) to determine whether a hierarchy may have an instance for each class or just one instance of a superclass.
+        I saw suggestions regarding a class similar to Singleton saying that it should be a namespace. While I considered this to emphasize that Singleton is not instantiable, I've decided this is not a good way to go, as namespaces cannot be templatized and it would not be able to privatize uniqueInstance. Both of these functionalities are crucial to Singleton.
+
+        The Singleton directory holds Singleton.h and a README file that gives more information about it and its use.

@@ -1,3 +1,0 @@
-When deriving from MapFactory, your constructor(s) needs to be either protected, if it can be derived from, or private, if it cannot be derived from. Please do not leave it public or default, as it will not work as a singleton.
-
-Significance of this class:

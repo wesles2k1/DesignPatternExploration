@@ -12,10 +12,3 @@ Room* EnchantedMapFactory::MakeRoom(int id) const {
 Door* EnchantedMapFactory::MakeDoor(Room* door1, Room* door2) const {
     return new EnchantedDoor(door1, door2);
 }
-
-// ------- //
-// Private //
-// ------- //
-
-// Initialize instance to nullptr
-// EnchantedMapFactory* EnchantedMapFactory::uniqueInstance = nullptr;

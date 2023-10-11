@@ -25,12 +25,3 @@ Door* MapFactory::MakeDoor(Room* room1, Room* room2) const {
 Player* MapFactory::MakePlayer(Room* startingRoom) const {
     return new Player(startingRoom);
 }
-
-// --------- //
-// Protected //
-// --------- //
-
-// Constructor
-MapFactory::MapFactory() {
-    
-}

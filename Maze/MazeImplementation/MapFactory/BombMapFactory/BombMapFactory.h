@@ -8,7 +8,8 @@ class BombMapFactory: public MapFactory {
         virtual Room* MakeRoom(int id) const;
         virtual Wall* MakeWall() const;
 
+    // Allow for Singleton behavior
     protected:
-        // The protected constructor of this class, allowing for children
-        //BombMapFactory();
+        BombMapFactory() {};
+    friend class Singleton;
 };
