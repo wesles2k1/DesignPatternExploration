@@ -10,5 +10,5 @@ class BombMapFactory: public MapFactory {
 
     protected:
         // The protected constructor of this class, allowing for children
-        BombMapFactory();
+        //BombMapFactory();
 };

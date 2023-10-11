@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include "MapFactory/Singleton.h"
 #include "MazeGame/MazeGame.h"
 #include "MapFactory/MapFactory.h"
 #include "MapFactory/BombMapFactory/BombMapFactory.h"
@@ -13,19 +14,19 @@ int main() {
 
     // First Game
     // Creates first (and only) instance of BombMapFactory
-    game.CreateMaze(*BombMapFactory::GetInstance<BombMapFactory>());
+    game.CreateMaze(*MapFactory::GetInstance<BombMapFactory>());
     game.RunGame();
     
     // Second Game
     // Creates first (and only) instance of EnchantedMapFactory
 
-    game.CreateMaze(*EnchantedMapFactory::GetInstance<EnchantedMapFactory>());
+    game.CreateMaze(*MapFactory::GetInstance<EnchantedMapFactory>());
     game.RunGame();
-    
+
     // Third Game
     // Recognizes the first BombMapFactory and uses that instead of making a new one.
 
-    game.CreateMaze(*BombMapFactory::GetInstance<BombMapFactory>());
+    game.CreateMaze(*MapFactory::GetInstance<BombMapFactory>());
     game.RunGame();
 
     // Fourth Game

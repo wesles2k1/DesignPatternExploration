@@ -15,6 +15,8 @@ Notes:
     This program does not yet deallocate memory.
 
 Problems/Questions (focused on the MapFactory hierarchy):
+    BIG PROBLEM: Subclasses CAN'T protect/privatize their own constructors:
+        I'm not entirely clear on why this is, but it seems that by declaring a constructor protected, the base class, who defines GetInstance(), can no longer access its own child's constructor. I don't know how to fix this.
     Instantiation Restriction:
         As of now, I believe that MapFactory::GetInstance() CANNOT return anything but a MapFactory, even a nullptr. Is this true? Can I assert that MapFactory::GetInstance() will ALWAYS return a pointer to an existing MapFactory?
         The only place I see where nullptr may be set is if the dynamic_cast fails. However, I believe that if T is anything other than a member of the MapFactory hierarchy, the program will refuse to compile, since a non-MapFactory can't be dynamically cast to or from a MapFactory.

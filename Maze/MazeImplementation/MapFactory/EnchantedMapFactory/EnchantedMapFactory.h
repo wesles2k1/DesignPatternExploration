@@ -3,6 +3,8 @@
 #include "../MapFactory.h"
 
 class EnchantedMapFactory: public MapFactory {
+    friend class MapFactory;
+
     public:
         // Factory Methods
         virtual Room* MakeRoom(int id) const;
@@ -10,5 +12,5 @@ class EnchantedMapFactory: public MapFactory {
 
     protected:
         // The protected constructor of this class, allowing for children
-        EnchantedMapFactory();
+        //EnchantedMapFactory();
 };
