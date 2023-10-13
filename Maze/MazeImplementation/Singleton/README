@@ -8,7 +8,7 @@ To use Singleton:
     2. Declare Siongleton as a Friend
     Give Singleton access to the constructor(s) by declaring Singleton as a friend of YourClass with:
         friend class Singleton();
-    2. Usage
+    3. Usage
     Use the Singleton functionality with:
         Singleton::Get<YourClass>();
     to get (and instantiate if necessary) a pointer to the one and only instance of YourClass.
@@ -27,3 +27,4 @@ Notes/Questions:
             friend class Singleton;
             friend YourClass* Singleton::Get<YourClass>();
         The second option ensures only Get works. But, the first option is straight up copy-pastable, no change needed for each class. Plus, is it really that bad that Singleton gets access to all private/protected members of a class that it knows nothing about? I believe the first is optimal: easy to read, easy to implement, and it works. But, the second option works, too.
+        Currently, the first is used.

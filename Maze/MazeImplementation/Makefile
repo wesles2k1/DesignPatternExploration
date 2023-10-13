@@ -20,8 +20,9 @@ fresh:
 	make ${EXECUTABLE}
 
 # Builds executable and associated object files
-${EXECUTABLE}: MazeGame/MazeGame.o Player/Player.o Map/Map.o MapFactory/MapFactory.o MapFactory/BombMapFactory/BombMapFactory.o MapFactory/EnchantedMapFactory/EnchantedMapFactory.o MapSite/Room/Room.o MapSite/Room/BombRoom/BombRoom.o MapSite/Room/EnchantedRoom/EnchantedRoom.o MapSite/Door/Door.o MapSite/Door/EnchantedDoor/EnchantedDoor.o MapSite/Wall/Wall.o MapSite/Wall/BombWall/BombWall.o
+${EXECUTABLE}: MazeGame/MazeGame.o MazeGame/MapType.o Player/Player.o Map/Map.o MapFactory/MapFactory.o MapFactory/BombMapFactory/BombMapFactory.o MapFactory/EnchantedMapFactory/EnchantedMapFactory.o MapSite/Room/Room.o MapSite/Room/BombRoom/BombRoom.o MapSite/Room/EnchantedRoom/EnchantedRoom.o MapSite/Door/Door.o MapSite/Door/EnchantedDoor/EnchantedDoor.o MapSite/Wall/Wall.o MapSite/Wall/BombWall/BombWall.o
 MazeGame.o: MazeGame/MazeGame.h
+MapType.o: MazeGame/MapType.h
 Player.o: Player/Player.h
 Map.o: Map/Map.h
 MapFactory.o: MapFactory/MapFactory.h

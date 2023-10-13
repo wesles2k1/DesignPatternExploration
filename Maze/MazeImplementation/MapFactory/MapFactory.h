@@ -13,7 +13,7 @@ class MapFactory {
         virtual Wall* MakeWall() const;
         virtual Door* MakeDoor(Room* door1, Room* door2) const;
         virtual Player* MakePlayer(Room* startingRoom) const;
-
+    
     // Allow for Singleton behavior
     protected:
         MapFactory() {};

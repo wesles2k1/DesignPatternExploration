@@ -1,39 +1,65 @@
 #include <iostream>
 
-#include "Singleton/Singleton.h"
 #include "MazeGame/MazeGame.h"
-#include "MapFactory/MapFactory.h"
-#include "MapFactory/BombMapFactory/BombMapFactory.h"
-#include "MapFactory/EnchantedMapFactory/EnchantedMapFactory.h"
+#include "MazeGame/MapType.h"
+
+#include "Singleton/Singleton.h"
 
 using namespace std;
 
 int main() {
 
     // Creates game and demonstrates that other classes beyond MapFactory can utilize Singleton
-    auto gameTest = Singleton::Get<MazeGame>();
+    MazeGame* game = Singleton::Get<MazeGame>();
 
     // First Game
     // Creates first (and only) instance of BombMapFactory
-    gameTest->CreateMaze(*Singleton::Get<BombMapFactory>());
-    Singleton::Get<MazeGame>()->RunGame();
+    game->BuildMaze(MapType::Bomb);
+    game->RunGame();
     
     // Second Game
     // Creates first (and only) instance of EnchantedMapFactory
-    Singleton::Get<MazeGame>()->CreateMaze(*Singleton::Get<EnchantedMapFactory>());
-    Singleton::Get<MazeGame>()->RunGame();
-
+    game->BuildMaze(MapType::Enchanted);
+    game->RunGame();
+    
     // Third Game
     // Recognizes the first BombMapFactory and uses that instead of making a new one.
-    gameTest->CreateMaze(*Singleton::Get<BombMapFactory>());
-    gameTest->RunGame();
+    game->BuildMaze(MapType::Bomb);
+    game->RunGame();
 
     // Fourth Game
     // Creates first (and only) instance of MapFactory
-    Singleton::Get<MazeGame>()->CreateMaze(*Singleton::Get<MapFactory>());
-    gameTest->RunGame();
+    game->BuildMaze(MapType::Default);
+    game->RunGame();
+    
+    // Fifth Game
+    // No argument results in a fully default maze being built
+    game->BuildMaze();
+    game->RunGame();
 
-    // Throughout, gameTest and Singleton::Get<MazeGame>() are used interchangably, both referring to the same, consistant instance of MazeGame.
+    // Sixth Game
+    // Demonstrates composite use of factories (All have equal chance)
+    game->BuildMaze( {
+        {MapType::Default, 3.0f},
+        {MapType::Bomb, 3.0f},
+        {MapType::Enchanted, 3.0f}
+    } );
+    game->RunGame();
+
+    // Seventh Game
+    // Demonstrates composite use of factories (Enchanted will be removed)
+    game->BuildMaze( {
+        {MapType::Enchanted, 0.25f},
+        {MapType::Bomb, 0.25f},
+        {MapType::Enchanted, -0.35f},
+        {MapType::Default, 1.5f},
+    } );
+    game->RunGame();
+    
+    // Issues:
+
+    // This is a valid parameter, but I'm not quite sure how to check for it or protect against it, as it breaks everything
+    //game->BuildMaze( { {},{} } );
     
     return 0;
 }

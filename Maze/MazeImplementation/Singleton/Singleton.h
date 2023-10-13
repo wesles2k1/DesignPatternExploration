@@ -11,10 +11,10 @@ class Singleton final {
         template <typename T>
         static T* Get() {
             if (uniqueInstance<T> == nullptr) {
-                std::cout << "Making new instance." << std::endl;
+                //std::cout << "Making new instance." << std::endl;
                 uniqueInstance<T> = new T();
             } else {
-                std::cout << "This instance already exists!" << std::endl;
+                //std::cout << "This instance already exists!" << std::endl;
             }
             return uniqueInstance<T>;
         }
