@@ -27,7 +27,6 @@ Problems/Questions (focused on the MapFactory hierarchy):
         There are a couple of concerns regarding the Singleton in its README file.
     MapType's MapTypeEnum():
         This has the purpose of allowing assignment operators with literal MapTypeEnums, but I'm not quite sure what exactly this line is doing and would like to know how it works.
-    MazeGame.BuildMaze( { {}, {} } ):
-        This counts as a valid call to BuildMaze. I'm not quite sure how to check for this to guard against it, and it makes me wonder if there are any other cases I'm overlooking that I should be safeguarding against.
+        Regardless, will this work? I want MapType to be an enum, but I made it a class that behaves like an enum (as far as I know) that has its own methods.
     Player Creation:
         Although I haven't looked very much into it, I cannot remove MapFactory's MakePlayer factory method or use a new MakePlayer factory method within MazeGame. It makes sense to me that the MapFactory shouldn't be concerned about the Player, and Player is not something that should be overriden by derived MapFactories. It should be in MazeGame, but I am restricted from doing so for now.

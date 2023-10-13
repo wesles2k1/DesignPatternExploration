@@ -8,21 +8,21 @@
 
 #include "../Player/Player.h"
 #include "MapType.h"
-#include "FactoryOption.h"
+#include "MapOption.h"
 
 class MapFactory;
 
 class MazeGame {
     public:
         Map* BuildMaze(MapType factory = MapType::Default);
-        Map* BuildMaze(std::vector<FactoryOption> factories);
+        Map* BuildMaze(std::vector<MapOption> factories);
 
     private:
         // Returns a random MapFactory from the list based on corresponding odds
-        MapFactory* RandomFactory(std::vector<FactoryOption>& factories) const;
+        MapFactory* RandomFactory(std::vector<MapOption>& factories) const;
 
-        // Reformats given FactoryOptions, removing duplicate factories, impossible odds, and normalizing odds to (0.0, 1.0]
-        void PrepFactoryOptions(std::vector<FactoryOption>& factories) const;
+        // Reformats given MapOptions, removing duplicate factories, impossible odds, and normalizing odds to (0.0, 1.0]
+        void PrepMapOptions(std::vector<MapOption>& factories) const;
 
     // The following is to be removed upon Unreal Engine integration.
 

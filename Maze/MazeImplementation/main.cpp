@@ -16,6 +16,9 @@ int main() {
     // Creates first (and only) instance of BombMapFactory
     game->BuildMaze(MapType::Bomb);
     game->RunGame();
+
+    game->BuildMaze({{MapType::Bomb, 0.0}});
+    game->RunGame();
     
     // Second Game
     // Creates first (and only) instance of EnchantedMapFactory
@@ -55,11 +58,6 @@ int main() {
         {MapType::Default, 1.5f},
     } );
     game->RunGame();
-    
-    // Issues:
-
-    // This is a valid parameter, but I'm not quite sure how to check for it or protect against it, as it breaks everything
-    //game->BuildMaze( { {},{} } );
     
     return 0;
 }

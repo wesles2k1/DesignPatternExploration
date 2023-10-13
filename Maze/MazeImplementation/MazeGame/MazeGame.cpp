@@ -8,11 +8,11 @@ Map* MazeGame::BuildMaze(MapType factory) {
     return BuildMaze( { {factory, 1.0f} } );
 }
 
-Map* MazeGame::BuildMaze(std::vector<FactoryOption> factories) {
+Map* MazeGame::BuildMaze(std::vector<MapOption> factories) {
     Map* aMaze = nullptr;
 
-    // Prepare the FactoryOptions for being used
-    PrepFactoryOptions(factories);
+    // Prepare the MapOptions for being used
+    PrepMapOptions(factories);
 
     // Prime the seed
     srand(static_cast<unsigned int>(time(0)));
@@ -101,7 +101,7 @@ void MazeGame::PromptMove() {
     }
 }
 
-MapFactory* MazeGame::RandomFactory(std::vector<FactoryOption>& factories) const {
+MapFactory* MazeGame::RandomFactory(std::vector<MapOption>& factories) const {
     MapFactory* selectedFactory{nullptr};
 
     // Generate a random number with the range of (0.0, 1.0]
@@ -123,8 +123,9 @@ MapFactory* MazeGame::RandomFactory(std::vector<FactoryOption>& factories) const
     return selectedFactory;
 }
 
-void MazeGame::PrepFactoryOptions(std::vector<FactoryOption>& factories) const {
-    std::vector<FactoryOption> tempFactories;
+void MazeGame::PrepMapOptions(std::vector<MapOption>& factories) const {
+
+    std::vector<MapOption> tempFactories;
 
     // Composite duplicate entries
     for(auto iter: factories) {
@@ -151,6 +152,7 @@ void MazeGame::PrepFactoryOptions(std::vector<FactoryOption>& factories) const {
         // Only keep entries with non-zero positive odds
         if(iter->odds <= 0.0) {
             tempFactories.erase(iter);
+            --iter;
         }
     }
     
@@ -169,9 +171,13 @@ void MazeGame::PrepFactoryOptions(std::vector<FactoryOption>& factories) const {
     factories.clear();
     factories = tempFactories;
 
-    // Output for testing and debugging
-    //for(auto iter: factories) {
-    //    std::cout << iter.factory.ToString() << ", " << iter.odds << std::endl;
-    //}
-    //std::cout << std::endl;
+    // Default if every element has been removed (because of 0.0 odds)
+    if(factories.empty()) {
+        factories.push_back({});
+    }
+
+    // Output the final list of factories for testing and debugging
+    for(auto iter: factories) {
+        std::cout << iter.factory.ToString() << ", " << iter.odds << std::endl;
+    }
 }
