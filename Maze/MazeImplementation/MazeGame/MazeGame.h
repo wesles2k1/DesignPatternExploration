@@ -29,13 +29,14 @@ class MazeGame {
     public:
         void RunGame();
 
-        // Factory Method
-        //Player* MakePlayer(Room* startingRoom) const;
-
     private:
         Player* player{nullptr};
         bool running{false};
 
+        // Factory Method
+        Player* MakePlayer(Room* startingRoom) const;
+
+        // User interaction
         void PromptAction();
         void PromptMove();
 };

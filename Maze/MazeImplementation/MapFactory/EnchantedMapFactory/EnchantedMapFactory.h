@@ -3,7 +3,6 @@
 #include "../MapFactory.h"
 
 class EnchantedMapFactory: public MapFactory {
-
     public:
         // Factory Methods
         virtual Room* MakeRoom(int id) const;

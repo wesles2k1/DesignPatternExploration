@@ -17,6 +17,7 @@ Map* MazeGame::BuildMaze(std::vector<MapOption> factories) {
     // Prime the seed
     srand(static_cast<unsigned int>(time(0)));
 
+    // Build the actual maze
     aMaze = RandomFactory(factories)->MakeMap();
     Room* r1 = RandomFactory(factories)->MakeRoom(1);
     Room* r2 = RandomFactory(factories)->MakeRoom(2);
@@ -35,7 +36,7 @@ Map* MazeGame::BuildMaze(std::vector<MapOption> factories) {
     r2->SetSide(Direction::South, RandomFactory(factories)->MakeWall());
     r2->SetSide(Direction::West, theDoor);
 
-    player = RandomFactory(factories)->MakePlayer(r1);
+    player = MakePlayer(r1);
 
     return aMaze;
 }
@@ -48,13 +49,13 @@ void MazeGame::RunGame() {
     }
 }
 
-//Player* MazeGame::MakePlayer(Room* startingRoom) const {
-//    return new Player(startingRoom);
-//}
-
 // ------- //
 // Private //
 // ------- //
+
+Player* MazeGame::MakePlayer(Room* startingRoom) const {
+    return new Player(startingRoom);
+}
 
 void MazeGame::PromptAction() {
     std::string action{};

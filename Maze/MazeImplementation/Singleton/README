@@ -11,20 +11,4 @@ To use Singleton:
     3. Usage
     Use the Singleton functionality with:
         Singleton::Get<YourClass>();
-    to get (and instantiate if necessary) a pointer to the one and only instance of YourClass.
-
-Notes/Questions:
-    Constructor Definition Requirement:
-        For some reason, classes that declare Singleton as a friend MUST provide a definition to its constructor; whether it's
-        YourClass() {};
-        in the header file, or
-        YourClass::YourClass() {};
-        in the implementation file. Simply
-        YourClass();
-        in the header file will not do and will cause an undefined reference error. I wonder why this is? It appears to work fine, regardless.
-    Best Way to Declare Friend:
-        I can give instructions to declare Singleton a friend, but which of the following two ways are better?
-            friend class Singleton;
-            friend YourClass* Singleton::Get<YourClass>();
-        The second option ensures only Get works. But, the first option is straight up copy-pastable, no change needed for each class. Plus, is it really that bad that Singleton gets access to all private/protected members of a class that it knows nothing about? I believe the first is optimal: easy to read, easy to implement, and it works. But, the second option works, too.
-        Currently, the first is used.
+    to get (and instantiate if necessary) a pointer to the one and only instance of YourClass. This can be used anywhere in a program so long as Singleton.h is included.

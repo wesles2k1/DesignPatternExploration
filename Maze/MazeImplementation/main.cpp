@@ -16,10 +16,7 @@ int main() {
     // Creates first (and only) instance of BombMapFactory
     game->BuildMaze(MapType::Bomb);
     game->RunGame();
-
-    game->BuildMaze({{MapType::Bomb, 0.0}});
-    game->RunGame();
-    
+    /*
     // Second Game
     // Creates first (and only) instance of EnchantedMapFactory
     game->BuildMaze(MapType::Enchanted);
@@ -58,6 +55,11 @@ int main() {
         {MapType::Default, 1.5f},
     } );
     game->RunGame();
-    
+
+    // Eighth Game
+    // Demonstrates that invalid input results in default map
+    game->BuildMaze({{MapType::Bomb, 0.0}});
+    game->RunGame();
+    */
     return 0;
 }

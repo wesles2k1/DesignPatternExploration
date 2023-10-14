@@ -21,7 +21,3 @@ Wall* MapFactory::MakeWall() const {
 Door* MapFactory::MakeDoor(Room* room1, Room* room2) const {
     return new Door(room1, room2);
 }
-
-Player* MapFactory::MakePlayer(Room* startingRoom) const {
-    return new Player(startingRoom);
-}
