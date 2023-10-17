@@ -4,12 +4,14 @@
 
 #include "../Singleton/Singleton.h"
 #include "../MapFactory/MapFactory.h"
-#include "../MapFactory/EnchantedMapFactory/EnchantedMapFactory.h"
 #include "../MapFactory/BombMapFactory/BombMapFactory.h"
+#include "../MapFactory/BombMapFactory/AtomicBombMapFactory/AtomicBombMapFactory.h"
+#include "../MapFactory/EnchantedMapFactory/EnchantedMapFactory.h"
+#include "../MapFactory/LockMapFactory/LockMapFactory.h"
 
 // This will be exposed to Unreal Engine's Blueprints
 
-// Anytime a new MapFactory is derived, it must be added to:
+// Anytime a new MapFactory is added, it must be added to:
 //      this file's #include
 //      enum MapTypeEnum
 //      ToMapFactory()
@@ -20,8 +22,10 @@ class MapType {
     public:
         enum MapTypeEnum {
             Default,
+            Bomb,
+            AtomicBomb,
             Enchanted,
-            Bomb
+            Lock
         };
 
         MapType() {};

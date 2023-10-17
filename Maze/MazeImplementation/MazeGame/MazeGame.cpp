@@ -120,7 +120,6 @@ MapFactory* MazeGame::RandomFactory(std::vector<MapOption>& factories) const {
         iter++;
     }
 
-
     return selectedFactory;
 }
 

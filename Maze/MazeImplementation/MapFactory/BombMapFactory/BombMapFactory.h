@@ -2,6 +2,9 @@
 
 #include "../MapFactory.h"
 
+#include "../../MapSite/Room/BombRoom/BombRoom.h"
+#include "../../MapSite/Wall/BombWall/BombWall.h"
+
 class BombMapFactory: public MapFactory {
     public:
         // Factory Methods

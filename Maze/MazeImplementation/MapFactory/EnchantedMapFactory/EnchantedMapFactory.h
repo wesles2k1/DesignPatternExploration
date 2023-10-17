@@ -2,6 +2,9 @@
 
 #include "../MapFactory.h"
 
+#include "../../MapSite/Room/EnchantedRoom/EnchantedRoom.h"
+#include "../../MapSite/Door/EnchantedDoor/EnchantedDoor.h"
+
 class EnchantedMapFactory: public MapFactory {
     public:
         // Factory Methods

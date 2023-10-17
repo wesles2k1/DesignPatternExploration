@@ -17,6 +17,12 @@ MapFactory* MapType::ToMapFactory() const {
         case MapTypeEnum::Bomb:
             returnFactory = Singleton::Get<BombMapFactory>();
             break;
+        case MapTypeEnum::AtomicBomb:
+            returnFactory = Singleton::Get<AtomicBombMapFactory>();
+            break;
+        case MapTypeEnum::Lock:
+            returnFactory = Singleton::Get<LockMapFactory>();
+            break;
         default:
             returnFactory = nullptr;
     }
@@ -29,13 +35,19 @@ std::string MapType::ToString() const {
 
     switch(enumVal) {
         case MapTypeEnum::Default:
-            returnString = "MapFactory";
+            returnString = "DefaultMap";
             break;
         case MapTypeEnum::Enchanted:
-            returnString = "EnchantedMapFactory";
+            returnString = "EnchantedMap";
             break;
         case MapTypeEnum::Bomb:
-            returnString = "BombMapFactory";
+            returnString = "BombMap";
+            break;
+        case MapTypeEnum::AtomicBomb:
+            returnString = "AtomicBombMap";
+            break;
+        case MapTypeEnum::Lock:
+            returnString = "LockMap";
             break;
         default:
             returnString = "Unknown map type";

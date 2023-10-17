@@ -1,8 +1,5 @@
 #include "EnchantedMapFactory.h"
 
-#include "../../MapSite/Room/EnchantedRoom/EnchantedRoom.h"
-#include "../../MapSite/Door/EnchantedDoor/EnchantedDoor.h"
-
 // Factory Methods
 
 Room* EnchantedMapFactory::MakeRoom(int id) const {
