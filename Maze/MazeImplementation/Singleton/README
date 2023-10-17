@@ -1,9 +1,9 @@
-Singleton is a generallized "static class" that holds and makes sure only one unique instance of a class is instantiated via the singleton design pattern.
+Singleton is a generallized "static class" that holds and ensures only one unique instance of a given class is instantiated via the singleton design pattern. The Singleton class itself cannot be instantiated.
 This class allows for parent-children coexistance; for example, a class and it's parent class may both have a stored instantiation, despite technically having two instances of type Parent.
 
 To use Singleton: 
     1. Privatize/Protect Your Constructor
-    Lock YourClass's constructor(s) by making it protected or private.
+    Lock YourClass's constructor(s) by making it protected or private. Make sure to provide a definition, even if it's empty or default.
     (While a private/protected constructor is not required for Singleton to function properly with YourClass, failing to do this will allow normal instantiation of YourClass, which likely will defeat the whole point of using Singleton. Despite this, there may be times you might want a public constructor so as to allow instantiation of YourClass, but utilize a psudo-globally-accessible uniqueInstance to work with.)
     2. Declare Siongleton as a Friend
     Give Singleton access to the constructor(s) by declaring Singleton as a friend of YourClass with:

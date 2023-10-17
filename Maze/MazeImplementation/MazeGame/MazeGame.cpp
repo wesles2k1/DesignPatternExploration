@@ -17,7 +17,7 @@ Map* MazeGame::BuildMaze(std::vector<MapOption> factories) {
     // Prime the seed
     srand(static_cast<unsigned int>(time(0)));
 
-    // Build the actual maze
+    // Build the actual maze (currently hardcoded to two, adjacent, connected rooms)
     aMaze = RandomFactory(factories)->MakeMap();
     Room* r1 = RandomFactory(factories)->MakeRoom(1);
     Room* r2 = RandomFactory(factories)->MakeRoom(2);

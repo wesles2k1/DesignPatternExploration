@@ -16,7 +16,7 @@ int main() {
     // Creates first (and only) instance of BombMapFactory
     game->BuildMaze(MapType::Bomb);
     game->RunGame();
-    /*
+    
     // Second Game
     // Creates first (and only) instance of EnchantedMapFactory
     game->BuildMaze(MapType::Enchanted);
@@ -45,7 +45,7 @@ int main() {
         {MapType::Enchanted, 3.0f}
     } );
     game->RunGame();
-
+    
     // Seventh Game
     // Demonstrates composite use of factories (Enchanted will be removed)
     game->BuildMaze( {
@@ -60,6 +60,6 @@ int main() {
     // Demonstrates that invalid input results in default map
     game->BuildMaze({{MapType::Bomb, 0.0}});
     game->RunGame();
-    */
+    
     return 0;
 }

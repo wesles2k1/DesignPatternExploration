@@ -23,20 +23,14 @@ Notes:
     This program does not yet deallocate memory.
 
 Problems/Questions (focused on the MapFactory hierarchy):
-    Singleton Constructor Definition Requirement:
-        For some reason, classes that declare Singleton as a friend MUST provide a definition to its constructor; whether it's
-        YourClass() {};
-        in the header file, or
-        YourClass::YourClass() {};
-        in the implementation file. Simply
-        YourClass();
-        in the header file will not do and will cause an undefined reference error. I wonder why this is? It appears to work fine, regardless.
-    Best Way to Declare Friend:
-        I can give instructions to declare Singleton a friend, but which of the following two ways are better?
-            friend class Singleton;
-            friend YourClass* Singleton::Get<YourClass>();
-        The second option ensures only Get works. But, the first option is straight up copy-pastable, no change needed for each class. Plus, is it really that bad that Singleton gets access to all private/protected members of a class that it knows nothing about? I believe the first is optimal: easy to read, easy to implement, and it works. But, the second option works, too.
-        Currently, the first is used.
+    Static Memory Management:
+        My singleton is of pointers. How do I manage this? I don't think the destructor is ever called, when do I (if I at all) delete the pointers?
     MapType's MapTypeEnum():
         This has the purpose of allowing assignment operators with literal MapTypeEnums, but I'm not quite sure what exactly this line is doing and would like to know how it works.
         Regardless, will this work? I want MapType to be an enum, but I made it a class that behaves like an enum (as far as I know) that has its own methods.
+        Really, this whole class confuses me. Does it work the way I think it should?
+        There is also a bit of concern in translating this to Unreal. It behaves like an enum, but how does Unreal interpret that?
+        What is constexpr?
+    Makefile:
+        How can I clean up my Makefile? The compilation of object files is already pretty long and ridiculous, but it's only going to grow. Otherwise, I think I'm happy with my project structure here.
+        Also are my includes good? I try including only the corresponding header file within a .cpp file, while the .h has all the other includes that it and its .cpp file needs. Is this good practice? It also seems to make the object compilation within the Makefile considerably more streamlined than listing .h after .h. I think my biggest concern at this point is accidently running into circular dependency. Can this be avoided by being aware of what relies on what and taking care to only have dependencies where absolutely necessary as a design?
