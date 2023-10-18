@@ -8,6 +8,15 @@ Map* MazeGame::BuildMaze(MapType factory) {
     return BuildMaze( { {factory, 1.0f} } );
 }
 
+Map* MazeGame::BuildMaze(std::vector<MapType> mapTypes) {
+    std::vector<MapOption> mapOptions;
+    for(size_t i{0}; i < mapTypes.size(); i++) {
+        mapOptions.push_back( {mapTypes[i], 1.0f} );
+    }
+
+    return BuildMaze(mapOptions);    
+}
+
 Map* MazeGame::BuildMaze(std::vector<MapOption> factories) {
     Map* aMaze = nullptr;
 

@@ -15,6 +15,7 @@ class MapFactory;
 class MazeGame {
     public:
         Map* BuildMaze(MapType factory = MapType::Default);
+        Map* BuildMaze(std::vector<MapType> mapTypes);
         Map* BuildMaze(std::vector<MapOption> factories);
 
     private:
