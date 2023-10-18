@@ -35,9 +35,9 @@ class MapType {
         operator MapTypeEnum() const { return enumVal; }
 
         // Returns the corresponding MapFactory
-        MapFactory* ToMapFactory() const;
+        explicit operator MapFactory*() const;
         // Returns the corresponding string
-        std::string ToString() const;
+        explicit operator std::string() const;
 
     private:
         MapTypeEnum enumVal{MapTypeEnum::Default};

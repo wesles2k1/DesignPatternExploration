@@ -4,7 +4,7 @@
 // Public //
 // ------ //
 
-MapFactory* MapType::ToMapFactory() const {
+MapType::operator MapFactory*() const {
     MapFactory* returnFactory;
 
     switch(enumVal) {
@@ -30,7 +30,7 @@ MapFactory* MapType::ToMapFactory() const {
     return returnFactory;
 }
 
-std::string MapType::ToString() const {
+MapType::operator std::string() const {
     std::string returnString{""};
 
     switch(enumVal) {

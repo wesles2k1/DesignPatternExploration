@@ -113,9 +113,9 @@ MapFactory* MazeGame::RandomFactory(std::vector<MapOption>& factories) const {
     while(selectedFactory == nullptr && iter != factories.end()) {
         roll -= iter->odds;
         if(roll <= 0.0) {
-            selectedFactory = iter->factory.ToMapFactory();
+            selectedFactory = static_cast<MapFactory*>(iter->factory);
             // Use to see what factory was the result
-            //std::cout << iter->factory.ToString() << std::endl;
+            //std::cout << iter->factory << std::endl;
         }
         iter++;
     }
@@ -178,6 +178,6 @@ void MazeGame::PrepMapOptions(std::vector<MapOption>& factories) const {
 
     // Output the final list of factories for testing and debugging
     for(auto iter: factories) {
-        std::cout << iter.factory.ToString() << ", " << iter.odds << std::endl;
+        std::cout << static_cast<std::string>(iter.factory) << ", " << iter.odds << std::endl;
     }
 }
