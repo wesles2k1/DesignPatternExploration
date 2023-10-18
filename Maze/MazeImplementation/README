@@ -2,7 +2,7 @@ Start Date:
     10/6/2023
     
 Description:
-    Last updated: 10/12/2023
+    Last updated: 10/17/2023
 
     This implementation of the Maze program is an attempt at combining the Abstract Factory (and, by extention, the Factory Method) and Singleton design patterns together to develop a maze generator.
 

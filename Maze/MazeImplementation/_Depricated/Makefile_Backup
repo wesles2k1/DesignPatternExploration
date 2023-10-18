@@ -1,0 +1,55 @@
+#Works for Powershell
+
+.PHONY: all clean rebuild
+
+CXXFLAGS = -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -Werror -std=c++17
+
+# Source files
+#SOURCES = $(wildcard \
+#	MazeGame/*.cpp \
+#	Player/*.cpp \
+#	Map/*.cpp \
+#	MapFactory/*.cpp \
+#		MapFactory/BombMapFactory/*.cpp \
+#			MapFactory/BombMapFactory/AtomicBombMapFactory/*.cpp \
+#		MapFactory/EnchantedMapFactory/*.cpp \
+#		MapFactory/LockMapFactory/*.cpp \
+#	MapSite/Room/*.cpp \
+#		MapSite/Room/BombRoom/*.cpp \
+#			MapSite/Room/BombRoom/AtomicBombRoom/*.cpp \
+#		MapSite/Room/EnchantedRoom/*.cpp \
+#	MapSite/Door/*.cpp \
+#		MapSite/Door/EnchantedDoor/*.cpp \
+#		MapSite/Door/LockDoor/*.cpp \
+#	MapSite/Wall/*.cpp \
+#		MapSite/Wall/BombWall/*.cpp \
+#		MapSite/Wall/LockWall/*.cpp)
+#$(info SOURCES: $(SOURCES))
+
+#BADSOURCES = $(powershell Get-ChildItem -Recurse *.cpp)
+#BADSOURCES = $(wildcard **/*.cpp)
+SOURCES = $(shell powershell -Command "Get-ChildItem -Recurse -Filter *.cpp -Exclude main.cpp . -Name")
+#BADSOURCES = Map\Map.cpp MapFactory\MapFactory.cpp MapFactory\BombMapFactory\BombMapFactory.cpp MapFactory\BombMapFactory\AtomicBombMapFactory\AtomicBombMapFactory.cpp MapFactory\EnchantedMapFactory\EnchantedMapFactory.cpp MapFactory\LockMapFactory\LockMapFactory.cpp MapSite\Door\Door.cpp MapSite\Door\EnchantedDoor\EnchantedDoor.cpp MapSite\Door\LockDoor\LockDoor.cpp MapSite\Room\Room.cpp MapSite\Room\BombRoom\BombRoom.cpp MapSite\Room\BombRoom\AtomicBombRoom\AtomicBombRoom.cpp MapSite\Room\EnchantedRoom\EnchantedRoom.cpp MapSite\Wall\Wall.cpp MapSite\Wall\BombWall\BombWall.cpp MapSite\Wall\LockWall\LockWall.cpp MazeGame\MapType.cpp MazeGame\MazeGame.cpp Player\Player.cpp
+#$(info BADSOURCES: $(BADSOURCES))
+
+# Object files
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# Executable file
+EXECUTABLE = main
+
+all: ${EXECUTABLE}
+
+# Cleans project by deleting executable and all files generated on compilation
+clean:
+	powershell rm * -Include ${EXECUTABLE}.exe, *.o, *.gcov, *.gcno, *.gcda -Recurse -ErrorAction Ignore; $$null
+
+# Cleans project and recompiles from the ground up
+rebuild:
+	make clean
+	powershell clear
+	powershell clear
+	make ${EXECUTABLE}
+
+# Builds executable and associated object files
+$(EXECUTABLE): $(OBJECTS)

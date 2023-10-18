@@ -1,9 +1,9 @@
 #include <iostream>
 
-#include "MazeGame/MazeGame.h"
-#include "MazeGame/MapType.h"
+#include "../MazeGame/MazeGame.h"
+#include "../MazeGame/MapType.h"
 
-#include "Singleton/Singleton.h"
+#include "../Singleton/Singleton.h"
 
 using namespace std;
 
