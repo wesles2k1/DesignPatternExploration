@@ -9,7 +9,7 @@
 #	`ROOT_PATH = ...` if you wish to specify the project's root directory
 #	`EXE_PATH = ...` if you wish to specify the executable's destination
 #	`EXCLUDE = ...` if you wish to specify files and/or directories (reletive to this Makefile) to exclude from compilation (Use `\` for navigation and `%` as a wildcard)
-#	`INCLUDE = ...` if you wish to specify files and/or directories (reletive to this Makefile) to include from compilation (Use `\` for navigation and `%` as a wildcard) (priority over EXCLUDE)
+#	`INCLUDE = ...` if you wish to specify files and/or directories (reletive to this Makefile) to include from compilation (Use `\` for navigation and `%` as a wildcard; Don't specify `.cpp` for individual files) (priority over exclude)
 
 # --------- #
 # Variables #
@@ -22,22 +22,19 @@ CXXFLAGS = -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wu
 
 # Executable File Name
 EXECUTABLE = main
-# Path to the root file from this Makefile
-ROOT_PATH = .
-# Path to the executable destination from this Makefile
-EXE_PATH = .
-
 # Object Files
 OBJECTS = $(SOURCES:.cpp=.o)
 # Source Files
 SOURCES = $(shell powershell Get-ChildItem -Recurse -Filter *.cpp -Name)
-#SOURCES = $(addprefix $(ROOT_PATH)\, $(shell powershell Get-ChildItem $(ROOT_PATH) -Recurse -Filter *.cpp -Name))
-EXCLUDE = _Deprecated\DepTest% MapFactory% Nonexistant% Test\Test.cpp
-#EXCLUDE = ./_Deprecated\DepTest% ./MapFactory% ./Nonexistant%
+EXCLUDE = _Deprecated\DepTest% MapFactory% Nonexistant%
 SOURCES := $(filter-out $(EXCLUDE), $(SOURCES))
-INCLUDE = MapFactory% _Deprecated\DepTest\DepTestCopy\Test.cpp NotReal%
-#INCLUDE = ./MapFactory%  ./_Deprecated\DepTest\DepTestCopy
+INCLUDE = MapFactory%  _Deprecated\DepTest\DepTestCopy
 SOURCES += $(filter-out $(SOURCES), $(filter $(INCLUDE), $(shell powershell Get-ChildItem -Recurse -Filter *.cpp -Name)))
+
+# Path to the root file from this Makefile
+ROOT_PATH = .
+# Path to the executable destination from this Makefile
+EXE_PATH = .
 
 # ----- #
 # Rules #
@@ -62,7 +59,7 @@ $(EXECUTABLE): $(OBJECTS)
 
 # Cleans project by deleting executable and all files generated on compilation
 clean:
-	powershell -Command "rm * -Include *.exe, *.o, *.gcov, *.gcno, *.gcda -Recurse -ErrorAction Ignore; $$null"
+	powershell rm * -Include *.exe, *.o, *.gcov, *.gcno, *.gcda -Recurse -ErrorAction Ignore; $$null
 
 # Cleans project and recompiles from the ground up
 rebuild:

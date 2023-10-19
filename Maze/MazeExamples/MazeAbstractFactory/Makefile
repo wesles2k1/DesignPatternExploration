@@ -2,6 +2,8 @@
 
 .PHONY: all clean fresh
 
+CXX = g++
+
 CXXFLAGS = -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -Werror -std=c++17
 
 EXECUTABLE = main
