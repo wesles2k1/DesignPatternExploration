@@ -39,7 +39,7 @@ int main() {
         {MapType::Lock, 3.0f}
     } );
     game->RunGame();
-
+    
     // Passes in MapTypes without odds
     game->BuildMaze( {MapType::Bomb, MapType::Lock} );
     game->RunGame();

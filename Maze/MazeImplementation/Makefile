@@ -4,40 +4,52 @@
 #
 # This Makefile is made for Powershell on a Windows machine and is generalized for use across different projects.
 # This Makefile will create and link object files all throughout the directory it is in.
-# Ideally, the only lines you may want to alter in this make file are:
+# Likely, the only lines you may want to alter in this make file are:
 #	`EXECUTABLE = ...` if you wish to rename the produced executable file
 #	`ROOT_PATH = ...` if you wish to specify the project's root directory
 #	`EXE_PATH = ...` if you wish to specify the executable's destination
-#	`EXCLUDE = ...` if you wish to specify files and/or directories (reletive to this Makefile) to exclude from compilation (Use `\` for navigation and `%` as a wildcard)
-#	`INCLUDE = ...` if you wish to specify files and/or directories (reletive to this Makefile) to include from compilation (Use `\` for navigation and `%` as a wildcard) (priority over EXCLUDE)
+#	`EXCLUDE = ...` if you wish to specify files and/or directories to exclude from compilation
+#	`INCLUDE = ...` if you wish to specify files and/or directories to include from compilation (priority over EXCLUDE)
+# Please note that the `clean` command will not adhere to the above customizations and always and only cleans the contents found in this Makefile's directory
 
-# --------- #
-# Variables #
-# --------- #
+# ----------------------- #
+# Configuration Variables #
+# ----------------------- #
 
 # Compiler
 CXX = g++
 # Compiler Flags
 CXXFLAGS = -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -Werror -std=c++17
 
-# Executable File Name
+# Executable Name
 EXECUTABLE = main
-# Path to the root file from this Makefile
+# Path to the root file from this Makefile (`.` for this Makefile's directory; Use `\` for navigation)
 ROOT_PATH = .
-# Path to the executable destination from this Makefile
-EXE_PATH = .
+# Path to the executable destination from this Makefile (Use `\` for navigation)
+EXE_PATH = $(ROOT_PATH)
+# Excludes directories/files relative to this Makefile from compilation if they exist (Use `\` for navigation and `%` as a wildcard)
+EXCLUDE = _Deprecated\DepTest% MapFactory% Nonexistant% Test\Test.cpp
+# Includes directories/files relative to this Makefile from compilation if they exist (Use `\` for navigation and `%` as a wildcard) (priority over EXCLUDE)
+INCLUDE = MapFactory% _Deprecated\DepTest\DepTestCopy\Test.cpp NotReal%
+
+# ------------------- #
+# Variable Processing #
+# ------------------- #
 
 # Object Files
 OBJECTS = $(SOURCES:.cpp=.o)
+
 # Source Files
-SOURCES = $(shell powershell Get-ChildItem -Recurse -Filter *.cpp -Name)
-#SOURCES = $(addprefix $(ROOT_PATH)\, $(shell powershell Get-ChildItem $(ROOT_PATH) -Recurse -Filter *.cpp -Name))
-EXCLUDE = _Deprecated\DepTest% MapFactory% Nonexistant% Test\Test.cpp
-#EXCLUDE = ./_Deprecated\DepTest% ./MapFactory% ./Nonexistant%
+SOURCES = $(addprefix $(ROOT_PATH)\, $(shell powershell -Command "Get-ChildItem $(ROOT_PATH) -Recurse -Filter *.cpp -Name"))
+
+EXCLUDE := $(addprefix $(ROOT_PATH)\, $(EXCLUDE))
 SOURCES := $(filter-out $(EXCLUDE), $(SOURCES))
-INCLUDE = MapFactory% _Deprecated\DepTest\DepTestCopy\Test.cpp NotReal%
-#INCLUDE = ./MapFactory%  ./_Deprecated\DepTest\DepTestCopy
-SOURCES += $(filter-out $(SOURCES), $(filter $(INCLUDE), $(shell powershell Get-ChildItem -Recurse -Filter *.cpp -Name)))
+
+SOURCES += $(addprefix $(ROOT_PATH)\, $(filter-out \
+	$(SOURCES), $(filter $(INCLUDE), \
+		$(shell powershell -Command "Get-ChildItem $(ROOT_PATH) -Recurse -Filter *.cpp -Name") \
+	) \
+))
 
 # ----- #
 # Rules #
@@ -67,8 +79,8 @@ clean:
 # Cleans project and recompiles from the ground up
 rebuild:
 	make clean
-	powershell clear
-	powershell clear
+	powershell -Command "clear"
+	powershell -Command "clear"
 	make $(EXECUTABLE)
 
 # ----- #
