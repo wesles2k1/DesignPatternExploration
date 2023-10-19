@@ -2,7 +2,7 @@
 # Written: 10/17/2023
 # Last Edited: 10/19/2023
 #
-# This Makefile is made for Powershell on a Windows machine and is generalized for use across different projects.
+# This Makefile is made for PowerShell on a Windows machine and is generalized for use across different projects.
 # This Makefile will create and link object files all throughout the directory it is in.
 # Likely, the only lines you may want to alter in this make file are:
 #	`EXECUTABLE = ...` if you wish to rename the produced executable file
@@ -10,7 +10,7 @@
 #	`EXE_PATH = ...` if you wish to specify the executable's destination
 #	`EXCLUDE = ...` if you wish to specify files and/or directories to exclude from compilation
 #	`INCLUDE = ...` if you wish to specify files and/or directories to include from compilation (priority over EXCLUDE)
-# Please note that the `clean` command will not adhere to the above customizations and always and only cleans the contents found in this Makefile's directory
+# Please note that the `clean` command will not adhere to EXCLUDE or INCLUDE specifiers, and will clean only and entirely the root directory
 
 # ----------------------- #
 # Configuration Variables #
@@ -74,7 +74,7 @@ $(EXECUTABLE): $(OBJECTS)
 
 # Cleans project by deleting executable and all files generated on compilation
 clean:
-	powershell -Command "rm * -Include *.exe, *.o, *.gcov, *.gcno, *.gcda -Recurse -ErrorAction Ignore; $$null"
+	powershell -Command "rm $(ROOT_PATH)\* -Include *.exe, *.o, *.gcov, *.gcno, *.gcda -Recurse -ErrorAction Ignore; $$null"
 
 # Cleans project and recompiles from the ground up
 rebuild:
