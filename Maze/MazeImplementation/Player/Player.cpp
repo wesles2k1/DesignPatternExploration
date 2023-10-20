@@ -6,6 +6,10 @@ Player::Player(Room* startingRoom) {
     currentRoom = startingRoom;
 }
 
+void Player::SetRoom(Room* room) {
+    currentRoom = room;
+}
+
 void Player::LookAround() {
     std::cout << "You are in room " << currentRoom->GetID() << std::endl;
 }

@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../MazeGame/MazeGame.h"
-#include "../MazeGame/MapType.h"
+#include "../MapInterface/MapInterface.h"
+#include "../MapInterface/MapType.h"
 
 #include "../Singleton/Singleton.h"
 
@@ -10,12 +10,12 @@ using namespace std;
 int main() {
 
     // Creates game and demonstrates that other classes beyond MapFactory can utilize Singleton
-    MazeGame* game = Singleton::Get<MazeGame>();
-
+    MapInterface* game = Singleton::Get<MapInterface>();
+    /*
     // Creates first (and only) instance of BombMapFactory
     game->BuildMaze(MapType::Bomb);
     game->RunGame();
-    /*
+    
     // Creates first (and only) instance of EnchantedMapFactory
     game->BuildMaze(MapType::Enchanted);
     game->RunGame();

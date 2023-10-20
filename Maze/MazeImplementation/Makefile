@@ -11,6 +11,7 @@
 #	`EXCLUDE = ...` if you wish to specify files and/or directories to exclude from compilation
 #	`INCLUDE = ...` if you wish to specify files and/or directories to include from compilation (priority over EXCLUDE)
 # Please note that the `clean` command will not adhere to EXCLUDE or INCLUDE specifiers, and will clean only and entirely the root directory
+# Theoretically, this Makefile may be improved to be generalized across different shells and operating systems.
 
 # ----------------------- #
 # Configuration Variables #
@@ -26,7 +27,7 @@ EXECUTABLE = main
 # Path to the root file from this Makefile (`.` for this Makefile's directory; Use `\` for navigation)
 ROOT_PATH = .
 # Path to the executable destination from this Makefile (Use `\` for navigation)
-EXE_PATH = $(ROOT_PATH)
+EXE_PATH = .
 # Excludes directories/files relative to this Makefile from compilation if they exist (Use `\` for navigation and `%` as a wildcard)
 EXCLUDE = _Deprecated\DepTest% MapFactory% Nonexistant% Test\Test.cpp
 # Includes directories/files relative to this Makefile from compilation if they exist (Use `\` for navigation and `%` as a wildcard) (priority over EXCLUDE)

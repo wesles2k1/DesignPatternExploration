@@ -25,6 +25,3 @@ Notes:
 Problems/Questions (focused on the MapFactory hierarchy):
     Static Memory Management:
         My Singleton is of pointers, but Singleton itself is never instantiated. How do I manage this? I don't think the destructor is ever called, when do I (if I at all) delete the pointers?
-    Makefile:
-        How can I clean up my Makefile? The compilation of object files is already pretty long and ridiculous, but it's only going to grow. Otherwise, I think I'm happy with my project structure here.
-        Also are my includes good? I try including only the corresponding header file within a .cpp file, while the .h has all the other includes that it and its .cpp file needs. Is this good practice? It also seems to make the object compilation within the Makefile considerably more streamlined than listing .h after .h. I think my biggest concern at this point is accidently running into circular dependency. Can this be avoided by being aware of what relies on what and taking care to only have dependencies where absolutely necessary as a design?
