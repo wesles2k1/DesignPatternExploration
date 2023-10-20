@@ -82,7 +82,7 @@ MapFactory* MapInterface::RandomFactory(std::vector<MapOption>& factories) const
     while(selectedFactory == nullptr && iter != factories.end()) {
         roll -= iter->odds;
         if(roll <= 0.0) {
-            selectedFactory = static_cast<MapFactory*>(iter->factory);
+            selectedFactory = iter->factory.ToMapFactory();
             // Use to see what factory was the result
             //std::cout << iter->factory << std::endl;
         }

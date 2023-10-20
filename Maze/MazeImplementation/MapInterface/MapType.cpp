@@ -4,7 +4,7 @@
 // Public //
 // ------ //
 
-MapType::operator MapFactory*() const {
+MapFactory* MapType::ToMapFactory() const {
     MapFactory* returnFactory;
 
     switch(enumVal) {

@@ -35,7 +35,7 @@ class MapType {
         operator MapTypeEnum() const { return enumVal; }
 
         // Returns the corresponding MapFactory
-        explicit operator MapFactory*() const;
+        MapFactory* ToMapFactory() const;
         // Returns the corresponding string
         explicit operator std::string() const;
 
