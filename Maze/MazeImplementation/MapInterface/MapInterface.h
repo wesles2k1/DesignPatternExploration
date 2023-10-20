@@ -11,11 +11,20 @@
 #include "MapOption.h"
 #include "../MapFactory/MapFactory.h"
 
+enum class GenerationMethod {
+    TwoRooms,
+    Procedural,
+    BinaryTree,
+    Kruskal
+};
+
 class MapInterface {
     public:
         MapInterface();
 
         Map* GetMap();
+
+        void SetGenerationMethod(GenerationMethod newGenerationMethod);
 
         // Called by client to construct the maze
         Map* BuildMaze(MapType mapType = MapType::Default);
@@ -24,6 +33,7 @@ class MapInterface {
 
     private:
         Map* map{nullptr};
+        GenerationMethod generationMethod{GenerationMethod::TwoRooms};
 
         // Returns a random MapFactory from the list based on corresponding odds
         MapFactory* RandomFactory(std::vector<MapOption>& mapTypes) const;

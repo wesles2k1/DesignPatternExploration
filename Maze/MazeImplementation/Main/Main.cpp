@@ -11,6 +11,7 @@ int main() {
 
     // Creates game and demonstrates that other classes beyond MapFactory can utilize Singleton
     MapInterface* game = Singleton::Get<MapInterface>();
+    game->SetGenerationMethod(GenerationMethod::Procedural);
     /*
     // Creates first (and only) instance of BombMapFactory
     game->BuildMaze(MapType::Bomb);

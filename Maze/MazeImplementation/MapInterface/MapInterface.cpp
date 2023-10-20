@@ -12,6 +12,10 @@ Map* MapInterface::GetMap() {
     return map;
 }
 
+void MapInterface::SetGenerationMethod(GenerationMethod newGenerationMethod) {
+    generationMethod = newGenerationMethod;
+}
+
 Map* MapInterface::BuildMaze(MapType factory) {
     BuildMaze( { {factory, 1.0f} } );
 
@@ -40,10 +44,22 @@ Map* MapInterface::BuildMaze(std::vector<MapOption> mapTypes) {
     srand(static_cast<unsigned int>(time(0)));
 
     // Build the maze (This is where the GenerationEnum should be used!)
-    map = BuildMazeTwoRooms(mapTypes);
-    //map = BuildMazeProcedural(mapTypes);
-    //map = BuildMazeMazeTree(mapTypes);
-    //map = BuildMazeKruskal(mapTypes);
+    switch(generationMethod) {
+        case GenerationMethod::TwoRooms:
+            map = BuildMazeTwoRooms(mapTypes);
+            break;
+        case GenerationMethod::Procedural:
+            map = BuildMazeProcedural(mapTypes);
+            break;
+        case GenerationMethod::BinaryTree:
+            map = BuildMazeTree(mapTypes);
+            break;
+        case GenerationMethod::Kruskal:
+            map = BuildMazeKruskal(mapTypes);
+            break;
+        default:
+            map = BuildMazeTwoRooms(mapTypes);
+    }
 
     // Set the player (start at first room)
     player->SetRoom(map->GetRoom(0));
