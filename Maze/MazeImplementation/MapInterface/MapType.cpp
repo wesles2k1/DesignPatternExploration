@@ -30,24 +30,44 @@ MapFactory* MapType::ToMapFactory() const {
     return returnFactory;
 }
 
+MapType MapType::StringToMapType(std::string inputString) {
+    std::transform(inputString.begin(), inputString.end(), inputString.begin(), [](unsigned char c){return std::tolower(c);});
+
+    if(inputString == "default") {
+        *this = MapType::Default;
+    } else if(inputString == "enchanted") {
+        *this = MapType::Enchanted;
+    } else if(inputString == "bomb") {
+        *this = MapType::Bomb;
+    } else if(inputString == "atomic bomb") {
+        *this = MapType::AtomicBomb;
+    } else if(inputString == "lock") {
+        *this = MapType::Lock;
+    } else {
+        *this = MapType::NULL_ENUM;
+    }
+    
+    return *this;
+}
+
 MapType::operator std::string() const {
     std::string returnString{""};
 
     switch(enumVal) {
         case MapTypeEnum::Default:
-            returnString = "DefaultMap";
+            returnString = "Default";
             break;
         case MapTypeEnum::Enchanted:
-            returnString = "EnchantedMap";
+            returnString = "Enchanted";
             break;
         case MapTypeEnum::Bomb:
-            returnString = "BombMap";
+            returnString = "Bomb";
             break;
         case MapTypeEnum::AtomicBomb:
-            returnString = "AtomicBombMap";
+            returnString = "Atomic Bomb";
             break;
         case MapTypeEnum::Lock:
-            returnString = "LockMap";
+            returnString = "Lock";
             break;
         default:
             returnString = "Unknown map type";

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <algorithm>
 
 #include "../Singleton/Singleton.h"
 #include "../MapFactory/MapFactory.h"
@@ -15,12 +16,15 @@
 //      this file's #include
 //      enum MapTypeEnum
 //      ToMapFactory()
-//      ToString()
+//      StringToMapType()
+//      operator std::string()
 
 // A complex enumeration that specifies a type of map
 class MapType {
     public:
         enum MapTypeEnum {
+            NULL_ENUM,
+
             Default,
             Bomb,
             AtomicBomb,
@@ -36,6 +40,9 @@ class MapType {
 
         // Returns the corresponding MapFactory
         MapFactory* ToMapFactory() const;
+
+        // Takes a string and sets/returns this MapType
+        MapType StringToMapType(std::string inputString);
         // Returns the corresponding string
         explicit operator std::string() const;
 

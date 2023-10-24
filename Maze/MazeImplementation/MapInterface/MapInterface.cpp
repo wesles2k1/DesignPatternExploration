@@ -247,6 +247,40 @@ Player* MapInterface::MakePlayer(Room* startingRoom) const {
     return new Player(startingRoom);
 }
 
+void MapInterface::PromptGenerationMethod() {
+    if(generationMethod == GenerationMethod::NULL_ENUM) {
+        std::cout << "Please enter a generation method:" << std::endl;
+        std::string inputString;
+        while(generationMethod == GenerationMethod::NULL_ENUM) {
+            getline(std::cin, inputString);
+            generationMethod.StringToGenerationMethod(inputString);
+            if(generationMethod == GenerationMethod::NULL_ENUM) {
+                std::cout << "Unknown generation method. Please try again." << std::endl;
+            } else {
+                std::cout << "Generation method: " << static_cast<std::string>(generationMethod) << std::endl;
+                std::cout << std::endl;
+            }
+        }
+    }
+}
+
+void MapInterface::PromptMapType() {
+    if(mapType == MapType::NULL_ENUM) {
+        std::cout << "Please enter a map type:" << std::endl;
+        std::string inputString;
+        while(mapType == MapType::NULL_ENUM) {
+            getline(std::cin, inputString);
+            mapType.StringToMapType(inputString);
+            if(mapType == MapType::NULL_ENUM) {
+                std::cout << "Unknown map type. Please try again." << std::endl;
+            } else {
+                std::cout << "Map type: " << static_cast<std::string>(mapType) << std::endl;
+                std::cout << std::endl;
+            }
+        }
+    }
+}
+
 void MapInterface::PromptAction() {
     std::string action{};
 

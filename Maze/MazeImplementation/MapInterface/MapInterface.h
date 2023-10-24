@@ -7,16 +7,19 @@
 #include <time.h>
 
 #include "../Player/Player.h"
+#include "GenerationMethod.h"
 #include "MapType.h"
 #include "MapOption.h"
 #include "../MapFactory/MapFactory.h"
 
-enum class GenerationMethod {
-    TwoRooms,
-    Procedural,
-    BinaryTree,
-    Kruskal
-};
+//enum class GenerationMethod {
+//    NULL_ENUM,
+//
+//    TwoRooms,
+//    Procedural,
+//    BinaryTree,
+//    Kruskal
+//};
 
 class MapInterface {
     public:
@@ -33,7 +36,7 @@ class MapInterface {
 
     private:
         Map* map{nullptr};
-        GenerationMethod generationMethod{GenerationMethod::TwoRooms};
+        GenerationMethod generationMethod{GenerationMethod::NULL_ENUM};
 
         // Returns a random MapFactory from the list based on corresponding odds
         MapFactory* RandomFactory(std::vector<MapOption>& mapTypes) const;
@@ -57,11 +60,15 @@ class MapInterface {
     // ============================================================= //
 
     public:
+        void PromptGenerationMethod();
+        void PromptMapType();
+
         void RunGame();
 
     private:
         Player* player{nullptr};
         bool running{false};
+        MapType mapType{MapType::NULL_ENUM};
 
         // Factory Method
         Player* MakePlayer(Room* startingRoom = nullptr) const;
