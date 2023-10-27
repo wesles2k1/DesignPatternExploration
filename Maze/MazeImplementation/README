@@ -19,9 +19,7 @@ Description:
 
     When running the game (via RunGame()), simple options will be provided.
 
-Notes:
+Problems/Questions:
     This program does not yet deallocate memory.
-
-Problems/Questions (focused on the MapFactory hierarchy):
     Static Memory Management:
         My Singleton is of pointers, but Singleton itself is never instantiated. How do I manage this? I don't think the destructor is ever called, when do I (if I at all) delete the pointers?

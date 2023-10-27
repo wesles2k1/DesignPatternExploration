@@ -7,19 +7,8 @@
 #include <time.h>
 
 #include "../Player/Player.h"
-#include "GenerationMethod.h"
-#include "MapType.h"
+#include "../MapEnums/GenerationMethod.h"
 #include "MapOption.h"
-#include "../MapFactory/MapFactory.h"
-
-//enum class GenerationMethod {
-//    NULL_ENUM,
-//
-//    TwoRooms,
-//    Procedural,
-//    BinaryTree,
-//    Kruskal
-//};
 
 class MapInterface {
     public:
@@ -54,6 +43,8 @@ class MapInterface {
         Map* BuildMazeTree(std::vector<MapOption> mapTypes);
         // Builds a maze using Kruskal's algorithm; Makes a rectangularly filled maze
         Map* BuildMazeKruskal(std::vector<MapOption> mapTypes);
+
+        Room* BuildRoom(int id, /*Direction direction, */std::vector<MapOption> mapTypes);
 
     // ============================================================= //
     // The following is to be removed upon Unreal Engine integration //

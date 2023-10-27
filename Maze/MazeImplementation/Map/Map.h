@@ -2,10 +2,10 @@
 
 #include <vector>
 
-#include "../MapSite/Room/Room.h"
-#include "../MapSite/Door/Door.h"
-#include "../MapSite/Wall/Wall.h"
-#include "../MapSite/Direction.h"
+#include "MapElement/Room/Room.h"
+#include "MapElement/Door/Door.h"
+#include "MapElement/Wall/Wall.h"
+#include "MapElement/Direction.h"
 
 // Defines a Map
 class Map {
@@ -17,4 +17,5 @@ class Map {
 
     protected:
         std::vector<Room*> roomStorage;
+        int nextRoomID{1};
 };

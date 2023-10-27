@@ -179,14 +179,25 @@ Map* MapInterface::BuildMazeProcedural(std::vector<MapOption> mapTypes) {
     Map* mapTemp{nullptr};
 
     mapTemp = RandomFactory(mapTypes)->MakeMap();
-    Room* r1 = RandomFactory(mapTypes)->MakeRoom(1);
+    Room* rootRoom = RandomFactory(mapTypes)->MakeRoom(1);
 
-    mapTemp->AddRoom(r1);
+    mapTemp->AddRoom(rootRoom);
+    std::vector<Door*> incompleteDoors;
 
-    r1->SetSide(Direction::North, RandomFactory(mapTypes)->MakeWall());
-    r1->SetSide(Direction::East, RandomFactory(mapTypes)->MakeWall());
-    r1->SetSide(Direction::South, RandomFactory(mapTypes)->MakeWall());
-    r1->SetSide(Direction::West, RandomFactory(mapTypes)->MakeWall());
+    // How can I store these rooms in a graph?
+    // This needs to be done so rooms can share preexisting elements (like if a room happens to be placed adjacent to another room with an incomplete door or a wall)
+    // Maybe rooms need a position member? (two ints, an x and a y)
+    for(int i{1}; i < 99; i++) {
+        // Map should probably hold a nextID value to use
+        // Select incomplete door
+        Room* roomTemp{BuildRoom(i + 1, mapTypes)};
+        // Connect roomTemp to existing room
+        // Note doors with no connections
+        // Somehow, note any other existing adjacent rooms and their connections
+        // Remove additional incomplete doors if happened to be complete
+        mapTemp->AddRoom(roomTemp);
+        // Add doors to list of incomplete doors
+    }
 
     return mapTemp;
 }
@@ -223,6 +234,11 @@ Map* MapInterface::BuildMazeKruskal(std::vector<MapOption> mapTypes) {
     return mapTemp;
 }
 
+Room* MapInterface::BuildRoom(int id, /*Direction direction, */std::vector<MapOption> mapTypes) {
+    Room* newRoom = RandomFactory(mapTypes)->MakeRoom(id);
+    return newRoom;
+}
+
 // ============================================================= //
 // The following is to be removed upon Unreal Engine integration //
 // ============================================================= //
@@ -237,14 +253,6 @@ void MapInterface::RunGame() {
     while(running) {
         PromptAction();
     }
-}
-
-// ------- //
-// Private //
-// ------- //
-
-Player* MapInterface::MakePlayer(Room* startingRoom) const {
-    return new Player(startingRoom);
 }
 
 void MapInterface::PromptGenerationMethod() {
@@ -279,6 +287,14 @@ void MapInterface::PromptMapType() {
             }
         }
     }
+}
+
+// ------- //
+// Private //
+// ------- //
+
+Player* MapInterface::MakePlayer(Room* startingRoom) const {
+    return new Player(startingRoom);
 }
 
 void MapInterface::PromptAction() {

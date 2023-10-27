@@ -29,9 +29,9 @@ ROOT_PATH = .
 # Path to the executable destination from this Makefile (Use `\` for navigation)
 EXE_PATH = .
 # Excludes directories/files relative to this Makefile from compilation if they exist (Use `\` for navigation and `%` as a wildcard)
-EXCLUDE = _Deprecated\DepTest% MapFactory% Nonexistant% Test\Test.cpp
+EXCLUDE = _Deprecated%
 # Includes directories/files relative to this Makefile from compilation if they exist (Use `\` for navigation and `%` as a wildcard) (priority over EXCLUDE)
-INCLUDE = MapFactory% _Deprecated\DepTest\DepTestCopy\Test.cpp NotReal%
+INCLUDE = 
 
 # ------------------- #
 # Variable Processing #

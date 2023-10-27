@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MapType.h"
+#include "../MapEnums/MapType.h"
 
 // This will be exposed to Unreal Engine's Blueprints
 

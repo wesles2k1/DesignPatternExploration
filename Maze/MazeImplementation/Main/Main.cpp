@@ -11,9 +11,9 @@ int main() {
     // Creates MapInterface and demonstrates that other classes beyond MapFactory can utilize Singleton
     MapInterface* game = Singleton::Get<MapInterface>();
     // Set up MapInterface for use
-    //game->SetGenerationMethod(GenerationMethod::TwoRooms);
-    game->PromptGenerationMethod();
-    game->PromptMapType();
+    game->SetGenerationMethod(GenerationMethod::TwoRooms);
+    //game->PromptGenerationMethod();
+    //game->PromptMapType();
 
     // Creates a maze based on input
     game->BuildMaze();
