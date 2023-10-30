@@ -6,10 +6,6 @@
 
 // Factory Methods
 
-Map* MapFactory::MakeMap() const {
-    return new Map();
-}
-
 Room* MapFactory::MakeRoom(int id) const {
     return new Room(id);
 }

@@ -2,10 +2,8 @@
 
 #include <vector>
 
-#include "MapElement/Room/Room.h"
-#include "MapElement/Door/Door.h"
-#include "MapElement/Wall/Wall.h"
-#include "MapElement/Direction.h"
+#include "MapFactory/MapFactory.h"
+#include "MapElement/MapElementInclude.h"
 
 // Defines a Map
 class Map {

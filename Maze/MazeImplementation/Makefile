@@ -20,7 +20,7 @@
 # Compiler
 CXX = g++
 # Compiler Flags
-CXXFLAGS = -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -Werror -std=c++17
+CXXFLAGS = -g -O3 -Wpedantic -Wall -Wextra -Wmisleading-indentation -Wunused -Wuninitialized -Wshadow -Wconversion -Werror -std=c++23
 
 # Executable Name
 EXECUTABLE = main

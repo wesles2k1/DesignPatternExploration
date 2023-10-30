@@ -1,0 +1,1 @@
+This directory contains files that provide an interface and main program to interact with the Map system via the terminal and may be excluded when porting this project to Unreal Engine.
